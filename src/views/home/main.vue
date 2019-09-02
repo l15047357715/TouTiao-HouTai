@@ -10,6 +10,6 @@ export default {}
 .main {
   background: url("../../assets/img/home.jpg") no-repeat;
   background-size: cover;
-  height: 100vh;
+  height: 92.5vh;
 }
 </style>

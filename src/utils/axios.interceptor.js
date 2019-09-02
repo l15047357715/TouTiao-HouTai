@@ -1,20 +1,21 @@
 import axios from 'axios'
 import router from '../routerGuard'
-import { Message } from 'element-ui'
+import {
+  Message
+} from 'element-ui'
 axios.defaults.baseURL = 'http://ttapi.research.itcast.cn/mp/v1_0'
 
 axios.interceptors.request.use(function (config) {
-  let token = localStorage.getItem('token')
-  config.headers['Authorization'] = `Bearer ${token}`
   console.log(config)
+  let token = localStorage.getItem('token')
+  config.headers.Authorization = `Bearer ${token}`
   return config
-}, function () { })
+}, function () {})
 
 axios.interceptors.response.use(function (response) {
   console.log(response)
   return response.data ? response.data : {}
 }, function (err) {
-  // debugger
   let status = err.response.status
   let message = ''
   switch (status) {
@@ -38,8 +39,10 @@ axios.interceptors.response.use(function (response) {
       message = '未知错误'
       break
   }
-  Message({ type: 'warning', message })
-  return new Promise(() => { })
+  Message({
+    message,
+    type: 'warning'
+  })
 })
 
 export default axios

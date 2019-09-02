@@ -1,15 +1,14 @@
 <template>
-  <div>
-    <el-row type="flex" class="layout-header" justify="space-between">
-      <el-col :span="7" class="left">
+  <div class="layout-header">
+    <el-row type="flex" justify="space-between" class="left">
+      <el-col :span="7">
         <i class="el-icon-s-unfold icon"></i>
         <span>江苏传智播客教育科技股份有限公司</span>
       </el-col>
-
       <el-col :span="4" class="right">
-        <img :src="userInfo.photo ? userInfo.photo : defaultImg" class="user-head" />
+        <img :src="userInfo.photo?userInfo.photo:defaultImg" class="user-head" />
         <el-dropdown @command="handleCommand">
-          <span class="el-dropdown-link user-name">
+          <span class="el-dropdown-link">
             {{userInfo.name}}
             <i class="el-icon-arrow-down el-icon--right"></i>
           </span>
@@ -33,11 +32,9 @@ export default {
     }
   },
   methods: {
-    getUserInfo () {
-      let token = localStorage.getItem('token')
+    gerUserInfo () {
       this.$axios({
-        url: '/user/profile',
-        headers: { Authorization: `Bearer ${token}` }
+        url: '/user/profile'
       }).then(res => {
         console.log(res)
         this.userInfo = res.data
@@ -45,17 +42,15 @@ export default {
     },
     handleCommand (command) {
       if (command === 'account') {
-        // 账户信息
       } else if (command === 'git') {
-        // git地址
       } else if (command === 'quit') {
         localStorage.clear()
-        this.$router.push('/login')
+        this.$route.push('/login')
       }
     }
   },
   created () {
-    this.getUserInfo()
+    this.gerUserInfo()
   }
 }
 </script>
@@ -65,27 +60,27 @@ export default {
   cursor: pointer;
   color: #409eff;
 }
+
 .el-icon-arrow-down {
   font-size: 12px;
 }
-.demonstration {
-  display: block;
-  color: #8492a6;
-  font-size: 14px;
-  margin-bottom: 20px;
-}
+
 .layout-header {
-  line-height: 40px;
   padding-top: 10px;
+
   .left {
     display: flex;
     align-items: center;
+
     .icon {
       font-size: 22px;
     }
   }
+
   .right {
     display: flex;
+    align-items: center;
+
     .user-head {
       width: 40px;
       height: 40px;

@@ -12,7 +12,7 @@
           <el-input v-model="formData.code" placeholder="请输入验证码" class="left"></el-input>
           <el-button class="right">发送验证码</el-button>
         </el-form-item>
-        <el-form-item prop="checked">
+        <el-form-item prop="check">
           <el-checkbox v-model="formData.check" label="我已阅读并同意用户协议和隐私条款"></el-checkbox>
         </el-form-item>
         <el-form-item>
@@ -24,6 +24,7 @@
 </template>
 
 <script>
+import { constants } from 'crypto';
 export default {
   data () {
     return {
@@ -63,18 +64,11 @@ export default {
             url: '/authorizations',
             method: 'post',
             data: this.formData
+          }).then(res => {
+            console.log(res)
+            localStorage.setItem('token', res.data.token)
+            this.$router.push('/home')
           })
-            .then(res => {
-              console.log(res)
-              localStorage.setItem('token', res.data.data.token)
-              // this.$router.push('/home')
-            })
-            .catch(() => {
-              this.$message({
-                message: '手机号或者验证码错误',
-                type: 'warning'
-              })
-            })
         }
       })
     }

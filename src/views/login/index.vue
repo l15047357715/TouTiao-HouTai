@@ -64,7 +64,7 @@ export default {
             method: 'post',
             data: this.formData
           }).then(res => {
-            console.log(res)
+            // console.log(res)
             localStorage.setItem('token', res.data.token)
             this.$router.push('/home')
           })

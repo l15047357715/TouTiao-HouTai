@@ -28,6 +28,12 @@ export default new Router({
     }, {
       path: '/home/material',
       component: () => import('./views/material')
+    }, {
+      path: '/home/article',
+      component: () => import('./views/article')
+    }, {
+      path: 'publish',
+      component: () => import('./views/publish')
     }]
   }]
 })

@@ -34,6 +34,10 @@ export default new Router({
     }, {
       path: 'publish',
       component: () => import('./views/publish')
+    },
+    {
+      path: 'publish/:id',
+      component: () => import('./views/publish')
     }]
   }]
 })

@@ -8,7 +8,7 @@
       <img class="head-image" :src="userInfo.photo || defaultImg" alt />
     </el-upload>
 
-    <el-form ref="userForm" :model="userInfo" :rules="rules" label-width="100px">
+    <el-form ref="form" :model="userInfo" :rules="rules" label-width="100px">
       <el-form-item label="用户名" prop="name">
         <el-input v-model="userInfo.name" style="width:300px"></el-input>
       </el-form-item>
@@ -33,10 +33,10 @@
 </template>
 
 <script>
+import eventBus from '../../utils/eventBus' // 公共的vue实例
 export default {
   data () {
     return {
-      defaultImg: require('../../assets/img/default-cover.jpg'),
       userInfo: {
         name: '',
         intro: '',
@@ -44,6 +44,7 @@ export default {
         email: '',
         mobile: ''
       },
+      defaultImg: require('../../assets/img/default-cover.jpg'),
       rules: {
         name: [
           { required: true, message: '用户名不能为空' },
@@ -61,7 +62,7 @@ export default {
   },
   methods: {
     saveUserInfo () {
-      this.$refs.userForm.validate(boolean => {
+      this.$refs.form.validate(boolean => {
         if (boolean) {
           this.$axios({
             url: '/user/profile',
@@ -72,6 +73,7 @@ export default {
               type: 'success',
               message: '恭喜您保存用户信息成功'
             })
+            eventBus.$emit('updateUserInfo') // 相当于打出了一个电话 电话号是updateUserInfo
           })
         }
       })

@@ -61,23 +61,6 @@ export default {
     }
   },
   methods: {
-    saveUserInfo () {
-      this.$refs.form.validate(boolean => {
-        if (boolean) {
-          this.$axios({
-            url: '/user/profile',
-            method: 'patch',
-            data: this.userInfo
-          }).then(() => {
-            this.$message({
-              type: 'success',
-              message: '恭喜您保存用户信息成功'
-            })
-            eventBus.$emit('updateUserInfo') // 相当于打出了一个电话 电话号是updateUserInfo
-          })
-        }
-      })
-    },
     getUserInfo () {
       this.$axios({
         url: '/user/profile'
@@ -96,6 +79,24 @@ export default {
       }).then(() => {
         this.loading = false
         this.getUserInfo()
+        eventBus.$emit('updateUserInfo') // 相当于打出了一个电话 电话号是updateUserInfo
+      })
+    },
+    saveUserInfo () {
+      this.$refs.form.validate(boolean => {
+        if (boolean) {
+          this.$axios({
+            url: '/user/profile',
+            method: 'patch',
+            data: this.userInfo
+          }).then(() => {
+            this.$message({
+              type: 'success',
+              message: '恭喜您保存用户信息成功'
+            })
+            eventBus.$emit('updateUserInfo') // 相当于打出了一个电话 电话号是updateUserInfo
+          })
+        }
       })
     }
   },
@@ -105,5 +106,12 @@ export default {
 }
 </script>
 
-<style>
+<style lang='less' scoped>
+.head-image {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  margin-left: 500px;
+}
 </style>

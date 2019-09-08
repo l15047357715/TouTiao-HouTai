@@ -1,8 +1,8 @@
 <template>
   <div>
     <el-container>
-      <el-aside style="background:#545c64;width:200px">
-        <layout-aside></layout-aside>
+      <el-aside style="background:#545c64" :style="{width: collapse ? '60px' : '200px '}">
+        <layout-aside :style="{width: collapse ? '60px' : '200px '}"></layout-aside>
       </el-aside>
       <el-container>
         <el-header>
@@ -17,7 +17,19 @@
 </template>
 
 <script>
-export default {}
+import eventBus from '../../utils/eventBus'
+export default {
+  data () {
+    return {
+      collapse: false
+    }
+  },
+  created () {
+    eventBus.$on('openOrClose', or => {
+      this.collapse = or
+    })
+  }
+}
 </script>
 
 <style lang="less" scoped>

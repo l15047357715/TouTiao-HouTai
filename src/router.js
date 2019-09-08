@@ -36,14 +36,17 @@ export default new Router({
       path: '/home/article',
       component: () => import('./views/article')
     }, {
-      path: 'publish',
+      path: '/home/publish',
       component: () => import('./views/publish')
     }, {
-      path: 'publish/:id',
+      path: '/home/publish/:id',
       component: () => import('./views/publish')
     }, {
-      path: 'account',
+      path: '/home/account',
       component: () => import('./views/account')
+    }, {// 账户信息
+      path: '/home/fansdata',
+      component: () => import('./views/fans/fansdata')
     }]
   }]
 })
